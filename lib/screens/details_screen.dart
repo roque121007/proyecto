@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_peliculas/models/model.dart';
 import 'package:proyecto_peliculas/widgets/widget.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -6,19 +7,16 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
+    final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppbar(),
+          _CustomAppbar(movie: movie),
 
           SliverList(
             delegate: SliverChildListDelegate([
-              _PostetrAndTitle(),
-              _Overview(),
-              _Overview(),
-              _Overview(),
+              _PostetrAndTitle(movie: movie),
+              _Overview(movie: movie),
               CastingCards(),
             ]),
           ),
@@ -29,6 +27,9 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppbar extends StatelessWidget {
+  final Movie movie;
+
+  const _CustomAppbar({required this.movie});
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -42,15 +43,16 @@ class _CustomAppbar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
+          padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
           color: Colors.black12,
           child: Text(
-            "movie.title",
+            movie.title,
             style: TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
         background: FadeInImage(
           placeholder: AssetImage("assets/loading.gif"),
-          image: NetworkImage("https://placehold.jp/500x300.png"),
+          image: NetworkImage(movie.fullBackDrop),
           fit: BoxFit.cover,
         ),
       ),
@@ -59,7 +61,8 @@ class _CustomAppbar extends StatelessWidget {
 }
 
 class _PostetrAndTitle extends StatelessWidget {
-  const _PostetrAndTitle({super.key});
+  final Movie movie;
+  const _PostetrAndTitle({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class _PostetrAndTitle extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage("assets/loading.gif"),
-              image: NetworkImage("https://placehold.jp/200x300.png"),
+              image: NetworkImage(movie.fullPosterImg),
               height: 150,
             ),
           ),
@@ -84,20 +87,20 @@ class _PostetrAndTitle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "movie.title",
+                movie.title,
                 style: texttheme.headlineMedium,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
               Text(
-                "movie.original.title",
+                movie.originalTitle,
                 style: texttheme.labelLarge,
                 overflow: TextOverflow.ellipsis,
               ),
               Row(
                 children: [
                   Icon(Icons.star_outline, size: 15, color: Colors.grey),
-                  Text("movievoteAvarage", style: texttheme.labelSmall),
+                  Text("${movie.voteAverage}", style: texttheme.labelSmall),
                 ],
               ),
             ],
@@ -109,14 +112,15 @@ class _PostetrAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
-  const _Overview({super.key});
+  final Movie movie;
+  const _Overview({required this.movie});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        "Tempor laborum veniam fugiat ipsum officia adipisicing nisi minim nisi proident qui nisi est irure. Eu labore laborum nisi in ut anim veniam exercitation minim aliqua cupidatat occaecat magna dolor. Lorem amet sunt Lorem sint amet. Dolore elit cillum ipsum cillum veniam dolor consectetur eiusmod sint nisi exercitation enim elit incididunt. Veniam anim dolor est et veniam et proident in pariatur est aliquip consequat et. Elit id reprehenderit enim magna et ad deserunt labore ipsum eiusmod exercitation ad. Sunt ut consectetur nisi quis labore eiusmod consequat do aliqua cupidatat.",
+        movie.overview,
         textAlign: TextAlign.justify,
 
         style: Theme.of(context).textTheme.bodyMedium,
