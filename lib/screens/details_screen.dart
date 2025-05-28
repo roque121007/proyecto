@@ -43,7 +43,7 @@ class _CustomAppbar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+          padding: EdgeInsets.only(bottom: 10),
           color: Colors.black12,
           child: Text(
             overflow: TextOverflow.ellipsis,
@@ -86,27 +86,30 @@ class _PostetrAndTitle extends StatelessWidget {
 
           SizedBox(width: 20),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                movie.title,
-                style: texttheme.headlineMedium,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              Text(
-                movie.originalTitle,
-                style: texttheme.labelLarge,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(
-                children: [
-                  Icon(Icons.star_outline, size: 15, color: Colors.grey),
-                  Text("${movie.voteAverage}", style: texttheme.labelSmall),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  movie.title,
+                  style: texttheme.headlineMedium,
+                ),
+                Text(
+                  movie.originalTitle,
+                  style: texttheme.labelLarge,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.star_outline, size: 15, color: Colors.grey),
+                    Text("${movie.voteAverage}", style: texttheme.labelSmall),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
