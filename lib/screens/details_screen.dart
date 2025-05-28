@@ -46,6 +46,8 @@ class _CustomAppbar extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
           color: Colors.black12,
           child: Text(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             textAlign: TextAlign.center,
             movie.title,
             style: TextStyle(fontSize: 16, color: Colors.white),
