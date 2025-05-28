@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:proyecto_peliculas/models/model.dart';
 
 class MoviesProvider extends ChangeNotifier {
-  String _apiKey = "f75c8b6efbddf53da4f286e1a81c3e65";
-  String _baseUrl = "api.themoviedb.org";
-  String _languaje = "es-ES";
+  final String _apiKey = "f75c8b6efbddf53da4f286e1a81c3e65";
+  final String _baseUrl = "api.themoviedb.org";
+  final String _languaje = "es-ES";
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
@@ -19,7 +19,7 @@ class MoviesProvider extends ChangeNotifier {
   Future<String> _getJsonData(String segmento, [int page = 1]) async {
     var url = Uri.https(_baseUrl, segmento, {
       'api_key': _apiKey,
-      'languaje': _languaje,
+      'language': _languaje,
       'page': '$page',
     });
 

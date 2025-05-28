@@ -37,7 +37,7 @@ class Cast {
     if (profilePath != null) {
       return 'https://image.tmdb.org/t/p/w500$profilePath';
     }
-    return 'https://i.stack.imugr.com/GNhxO.png';
+    return 'https://i.stack.imgur.com/GNhxO.png';
   }
 
   Cast({

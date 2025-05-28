@@ -24,7 +24,7 @@ class CastingCards extends StatelessWidget {
           height: 180,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 10,
+            itemCount: cast.length,
             itemBuilder: (_, index) => _CatCard(actor: cast[index]),
           ),
         );
@@ -49,7 +49,7 @@ class _CatCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
-              placeholder: AssetImage("assets/loading.gif"),
+              placeholder: AssetImage("assets/no-image.jpg"),
               image: NetworkImage(actor.fullProfilePath),
               height: 130,
               width: 100,
