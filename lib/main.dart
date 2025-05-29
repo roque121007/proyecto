@@ -12,15 +12,10 @@ class Appstate extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-
-        ChangeNotifierProvider(create: (_)=>MoviesProvider(),
-        lazy: false,
-        
-        )
+        ChangeNotifierProvider(create: (_) => MoviesProvider(), lazy: false),
       ],
       child: MyApp(),
-      
-      );
+    );
   }
 }
 
@@ -38,8 +33,8 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(color: Colors.white),
           color: Colors.indigo,
-          elevation: 0
-        )
+          elevation: 0,
+        ),
       ),
     );
   }
