@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:proyecto_peliculas/models/model.dart';
 import 'package:proyecto_peliculas/providers/movies_provider.dart';
+import 'package:provider/provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
   @override
-  String? get searchFieldLabel => "Buscar Pelicaula";
+  String? get searchFieldLabel => 'Buscar Pelicula';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
+        icon: Icon(Icons.clear, color: Colors.black),
         onPressed: () {
-          query = "";
+          query = '';
         },
-        icon: Icon(Icons.clear),
+      ),
+      IconButton(
+        onPressed: () {
+          showResults(context);
+        },
+        icon: Icon(Icons.search, color: Colors.black),
       ),
     ];
   }
@@ -22,16 +28,16 @@ class MovieSearchDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
+      icon: Icon(Icons.arrow_back),
       onPressed: () {
         close(context, null);
       },
-      icon: Icon(Icons.arrow_back),
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("builc result");
+    return Text('buildResults');
   }
 
   Widget _emptyContainer() {
@@ -39,7 +45,7 @@ class MovieSearchDelegate extends SearchDelegate {
       child: Icon(
         Icons.movie_creation_outlined,
         color: Colors.black38,
-        size: 300,
+        size: 200,
       ),
     );
   }
@@ -57,6 +63,7 @@ class MovieSearchDelegate extends SearchDelegate {
         if (!snapshot.hasData) return _emptyContainer();
 
         final movies = snapshot.data!;
+
         return ListView.builder(
           itemCount: movies.length,
           itemBuilder: (_, int index) => _MovieItem(movie: movies[index]),
@@ -68,21 +75,27 @@ class MovieSearchDelegate extends SearchDelegate {
 
 class _MovieItem extends StatelessWidget {
   final Movie movie;
+
   const _MovieItem({required this.movie});
 
   @override
   Widget build(BuildContext context) {
+    movie.heroId = 'search-${movie.id}';
+
     return ListTile(
-      leading: FadeInImage(
-        placeholder: AssetImage("assets/no-image.jpg"),
-        image: NetworkImage(movie.fullPosterImg),
-        width: 50,
-        fit: BoxFit.contain,
+      leading: Hero(
+        tag: movie.heroId!,
+        child: FadeInImage(
+          placeholder: const AssetImage('assets/no-image.jpg'),
+          image: NetworkImage(movie.fullPosterImg),
+          width: 50,
+          fit: BoxFit.contain,
+        ),
       ),
-      title: Text(movie.title),
-      subtitle: Text(movie.originalTitle),
+      title: Text(movie.title, overflow: TextOverflow.ellipsis),
+      subtitle: Text(movie.originalTitle, overflow: TextOverflow.ellipsis),
       onTap: () {
-        Navigator.pushNamed(context, "details", arguments: movie);
+        Navigator.pushNamed(context, 'details', arguments: movie);
       },
     );
   }
